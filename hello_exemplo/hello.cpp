@@ -7,7 +7,7 @@ using namespace std;
 int main(int argc, char** argv){
   //Carregando uma imagem localizada numa outra pasta qualquer
 	vector<String> fn;
-	glob("/home/victor/Área de Trabalho/OpenCV_testes/img/biel.png", fn, false); // primeiro argumento é o endereço da imagem
+	glob("/home/victor/Área de Trabalho/OpenCV_Codes/img/biel.png", fn, false); // primeiro argumento é o endereço da imagem
 
 
   Mat image;

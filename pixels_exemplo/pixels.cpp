@@ -10,7 +10,7 @@ int main(int, char**){
 
   //Carregando uma imagem localizada numa outra pasta qualquer
 	vector<String> fn;
-	glob("/home/victor/Área de Trabalho/OpenCV_testes/img/bolhas.png", fn, false);
+	glob("/home/victor/Área de Trabalho/OpenCV_Codes/img/bolhas.png", fn, false);
 
   image= imread(fn[0],CV_LOAD_IMAGE_GRAYSCALE);
   if(!image.data)

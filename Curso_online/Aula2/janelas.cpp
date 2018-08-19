@@ -7,7 +7,7 @@ using namespace cv;
 int main(){
     //Carregando uma imagem localizada numa outra pasta qualquer
 	vector<String> fn;
-	glob("/home/victor/Área de Trabalho/OpenCV_testes/img/aula1.jpg", fn, false);
+	glob("/home/victor/Área de Trabalho/OpenCV_Codes/img/aula1.jpg", fn, false);
 
 
     Mat colorida = imread(fn[0],CV_LOAD_IMAGE_COLOR); //carrega imagem com cores
