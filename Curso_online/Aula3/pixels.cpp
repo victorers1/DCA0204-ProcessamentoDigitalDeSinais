@@ -28,22 +28,9 @@ int main(){
             modif.at<uint8_t>(r,c) = 255 - modif.at<uint8_t>(r,c);
         }
     }
+
     imshow("Original", orig);
     imshow("Modificado", modif);
-    waitKey();
-
-    // Modificando imagem colorida
-    for(int r=0; corMuda.rows; r++){
-        for(int c=0; corMuda.cols; c++){
-
-            corMuda.at<cv::Vec3b>(r,c)[0] = 0; // Retira tons de azul
-            
-            //corMuda.at<cv::Vec3b>(r,c)[1] = 0; // Retira tons de Verde
-            //corMuda.at<cv::Vec3b>(r,c)[2] = 0; // Retira tons de Vermelho
-        }
-    }
-    imshow("Original", naoMuda);
-    imshow("Modificada", corMuda);
     waitKey();
     
     return 0;
