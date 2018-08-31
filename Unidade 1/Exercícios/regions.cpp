@@ -49,7 +49,7 @@ int main(){
 
     for(int l=ini.x; l<fin.x; l++){
         for(int c=ini.y; c<fin.y; c++){
-            imagem.at<uchar>(l, c) = 255 - imagem.at<uchar>(l, c);
+            imagem.at<uchar>(c,l) = 255 - imagem.at<uchar>(c,l);
         }
     }
 

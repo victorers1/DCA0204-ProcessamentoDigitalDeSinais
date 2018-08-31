@@ -13,11 +13,9 @@ int main(){
 
     Mat orig = imread(cinza[0], CV_LOAD_IMAGE_GRAYSCALE); //carrega imagem monocromática
     Mat modif = imread(cinza[0], CV_LOAD_IMAGE_GRAYSCALE);//carrega mesma imagem, mas essa será modificada
-    Mat naoMuda = imread(cor[0], CV_LOAD_IMAGE_COLOR);
-    Mat corMuda = imread(cor[0], CV_LOAD_IMAGE_COLOR);
     Vec3b pincel;
 
-    if(!orig.data || !modif.data || !naoMuda.data || !corMuda.data){
+    if(!orig.data || !modif.data){
         cout<<"Nao abriu uma das imagens\n";
         return 0;
     }

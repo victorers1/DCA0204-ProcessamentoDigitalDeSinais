@@ -11,6 +11,8 @@ int main(){
     Mat corMuda = imread(endImg[0], CV_LOAD_IMAGE_COLOR);
     Mat original = imread(endImg[0], CV_LOAD_IMAGE_COLOR);
 
+    cout<< corMuda.at<Vec3b>(0,0)[1]<<endl;
+
     for(int r=0; r<corMuda.rows; r++){
         for(int c=0; c<corMuda.cols; c++){
             corMuda.at<cv::Vec3b>(r,c)[0] = 0; // Retira tons de azul
