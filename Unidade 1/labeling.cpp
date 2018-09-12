@@ -39,6 +39,9 @@ void floodfill(Mat im, CvPoint p, int cor){
     }
 }
 
+/**
+ * Retira bolhas da bordas
+ */
 void filtraBordas(Mat im){
     for(int c=0; c<im.cols; c++){ // Percorre borda superior
         im.at<uchar>(0, c) = 255;
