@@ -8,6 +8,10 @@
 using namespace std;
 using namespace cv;
 
+/**
+ * Recebe uma imagem e a quantidade debarras do histograma desejado
+ * Retorna o histograma
+ */
 Mat criaHist(Mat const imagem, int bins){
     int histSize[] = {bins}; // 
 
@@ -22,6 +26,10 @@ Mat criaHist(Mat const imagem, int bins){
     return hist;
 }
 
+/**
+ * Recebe um histograma e a quantidade de barras nele
+ * Retorna uma imagem do histograma
+ */
 Mat3b histImage(Mat const hist, int bins){
     int const hist_height = 256;
     Mat3b hist_image = Mat3b::zeros(hist_height, bins); // Matriz na qual cada pixels tem 3 Bytes inicializada com 0 em todas posições
@@ -40,100 +48,19 @@ Mat3b histImage(Mat const hist, int bins){
     return hist_image;
 }
 
-float* operaVetor(float vet1[], float vet2[], int tam, int op){
-    float* res = new float[tam];
-    if(op==0){
-        for(int i=0; i<tam; i++){
-            res[i] = vet1[i]+vet2[i];
-        }
-    } else if(op==1){
-        for(int i=0; i<tam; i++){
-            res[i] = vet1[i]-vet2[i];
-        }
-    } else if(op==2){
-        for(int i=0; i<tam; i++){
-            res[i] = vet1[i]*vet2[i];
-        }
-    } else if(op==3){
-        for(int i=0; i<tam; i++){
-            res[i] = vet1[i]/vet2[i]; // OBS.: Divisão inteira
-        }
-    } else{
-        return NULL;
-    }
-    return res;
-}
-
-float* operaElement(float vet[], int tam, float elem, int op){
-    float* res = new float[tam];
-    if(op==0){
-        for(int i=0; i<tam; i++){
-            res[i] = vet[i]+elem;
-        }
-    } else if(op==1){
-        for(int i=0; i<tam; i++){
-            res[i] = vet[i]-elem;
-        }
-    } else if(op==2){
-        for(int i=0; i<tam; i++){
-            res[i] = vet[i]*elem;
-        }
-    } else if(op==3){
-        for(int i=0; i<tam; i++){
-            res[i] = vet[i]/elem; // OBS.: Divisão inteira
-        }
-    } else{
-        return NULL;
-    }
-    return res;
-
-}
-
-int* histAcum(Mat const hist, int t){ // Retorna o histograma acumulado. Recebe um vetor de inteiros e seu tamanho
-    int* vetor = new int[t]; // Aloca dinamicamente um vetor de inteiros com tamanho 't'
-    vetor[0] = hist.at<float>(0);
-    for(int i=1; i<t; i++) vetor[i] = (int) hist.at<float>(i) + vetor[i-1];
-    
-    return vetor;
-}
-
-Mat equaliza(Mat const& imagem, Mat const hist, int tamHist){
-    Mat equalizado(imagem.size(), sizeof(uchar));
-    double hist_acum[tamHist], qtdPixels = imagem.rows*imagem.cols; // qtdPixels pode ser 'int' ou 'float'
-    hist_acum[0] = hist.at<float>(0);
-    for(int i=1; i<tamHist; i++){
-        hist_acum[i] = hist.at<float>(i) + hist_acum[i-1]; // histograma de probabilidades acumuladas
-    }
-    cout<<"hist.prob= ";
-    for(int i=0; i<tamHist; i++){
-        cout<<hist.at<float>(i)<<" ";
-    }
-    cout<<"\n\nacum= ";
-    for(int i=0; i<tamHist; i++){
-        hist_acum[i] = hist_acum[i]/hist_acum[tamHist-1];
-        cout<<hist_acum[i]<<" ";
-    }
-
-    for(int x = 0; x<imagem.rows; x++){
-        for(int y = 0; y<imagem.cols; y++){
-            equalizado.at<uchar>(x,y) = (int) hist_acum[imagem.at<uchar>(x,y)];
-        }
-    }
-    return equalizado;
-}
-
 int main(){
     vector<String> end;
     glob("/home/victor/Área de Trabalho/OpenCV_Codes/img/Ursos.jpg", end, false);
 
     Mat imagem = imread(end[0], CV_LOAD_IMAGE_GRAYSCALE);
-    Mat hist_original = criaHist(imagem, 256);
-    Mat equalizado = equaliza(imagem, hist_original, 256);
+    Mat equalizado;
+    equalizeHist(imagem, equalizado);
 
-    imshow("Original", imagem);
-    imshow("Histograma do original", histImage(hist_original, 256));
+    imshow("Original", imagem); // Mostra original
+    imshow("Histograma do original", histImage(criaHist(imagem, 256), 256)); // Cria o vetor histograma e depois a imagem dele
+    
     imshow("Imagem Equalizada", equalizado);
-    imshow("Histograma da equalizada", histImage(equalizado, 256));
+    imshow("Histograma da equalizada", histImage(criaHist(equalizado, 256), 256));
     waitKey();
     return 0;
 }

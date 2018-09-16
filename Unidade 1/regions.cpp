@@ -42,9 +42,9 @@ int main(){
     ini = pontos[0];
     fin = pontos[1];
 
-    cout<<"Ponto ini:\n";
+    cout<<"Ponto superior esquerdo:\n";
     cout<<ini<<endl;
-    cout<<"Ponto fin:\n";
+    cout<<"Ponto inferior direito:\n";
     cout<<fin<<endl;
 
     for(int l=ini.x; l<fin.x; l++){
@@ -52,7 +52,6 @@ int main(){
             imagem.at<uchar>(c,l) = 255 - imagem.at<uchar>(c,l);
         }
     }
-
     imshow("Resultado", imagem);
     waitKey();
 

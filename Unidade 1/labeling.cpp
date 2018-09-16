@@ -70,7 +70,7 @@ int main(){
     int qtdBolha=0, qtdBuraco=0;
 
     imshow("Sem bordas", imagem); // Mostra a imagem sem as bolhas nas bordas
-
+    imwrite("semborda.png", imagem);
     for(int y=0; y<imagem.cols; y++){
         for(int x=0; x<imagem.rows; x++){
             if(imagem.at<uchar>(x, y)==255){
@@ -97,6 +97,7 @@ int main(){
     }
 
     imshow("Buracos", imagem);
+    imwrite("buracos.png", imagem);
     cout<<qtdBuraco<<" com buraco."<<endl;
     waitKey();
 
